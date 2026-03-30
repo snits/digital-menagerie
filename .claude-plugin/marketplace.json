@@ -1,19 +1,19 @@
 {
   "name": "digital-menagerie",
+  "description": "Claude Code plugins for agent design, workflow, and tooling",
   "owner": {
-    "name": "jsnitsel",
+    "name": "Jerry Snitselaar",
     "url": "https://github.com/jsnitsel"
-  },
-  "metadata": {
-    "description": "Claude Code plugins for agent design, workflow, and tooling",
-    "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "agent-personality",
       "source": "./agent-personality",
-      "description": "Design personality-driven agents for Claude Code through structured interview. Creates new agents or retrofits personality onto existing ones.",
+      "description": "Design personality-driven agents for Claude Code through a structured interview process based on agent-factory's approach. Creates new agents or retrofits personality onto existing ones. For full team creation, use agent-factory.",
       "version": "1.0.0",
+      "author": {
+        "name": "Jerry Snitselaar"
+      },
       "keywords": ["agents", "personality", "identity", "voice", "interview", "design", "retrofit"]
     }
   ]

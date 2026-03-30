@@ -13,7 +13,7 @@ Design personality-driven agents for Claude Code through a structured interview 
 
 Core protocol: 4-step personality interview (Identity, Voice, Team Relationships, Off-Limits) with mandatory pressure testing.
 
-Complementary to [agent-factory](https://github.com/nervous-net/nervous-marketplace) — agent-factory handles team scaffolding, this plugin handles individual agent personality design.
+The interview process builds on [Dylan Reed's](https://github.com/dylanreed) [agent-factory](https://github.com/nervous-net/nervous-marketplace). agent-factory handles team scaffolding, this plugin handles individual agent personality design.
 
 ## Installation
 
