@@ -10,7 +10,7 @@
       "name": "agent-personality",
       "source": "./agent-personality",
       "description": "Design personality-driven agents for Claude Code through a structured interview process based on agent-factory's approach. Creates new agents or retrofits personality onto existing ones. For full team creation, use agent-factory.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Jerry Snitselaar"
       },
