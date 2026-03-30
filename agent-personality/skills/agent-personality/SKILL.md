@@ -1,5 +1,3 @@
-<!-- ABOUTME: Skill for designing personality-driven Claude Code agents through structured interview. -->
-<!-- ABOUTME: Handles new agent creation and retrofitting personality onto existing agents. -->
 ---
 name: agent-personality
 description: Design personality-driven agents for Claude Code. Creates new agents with personality from the start, or retrofits personality onto existing agents. Use when creating agents, adding personality to existing agents, or improving agent personas that feel generic or interchangeable.
