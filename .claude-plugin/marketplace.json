@@ -1,0 +1,20 @@
+{
+  "name": "digital-menagerie",
+  "owner": {
+    "name": "jsnitsel",
+    "url": "https://github.com/jsnitsel"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for agent design, workflow, and tooling",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "agent-personality",
+      "source": "./agent-personality",
+      "description": "Design personality-driven agents for Claude Code through structured interview. Creates new agents or retrofits personality onto existing ones.",
+      "version": "1.0.0",
+      "keywords": ["agents", "personality", "identity", "voice", "interview", "design", "retrofit"]
+    }
+  ]
+}

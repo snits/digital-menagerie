@@ -1,0 +1,12 @@
+{
+  "name": "agent-personality",
+  "version": "1.0.0",
+  "description": "Design personality-driven agents for Claude Code. Creates new agents with personality from the start, or retrofits personality onto existing agents through a structured interview process. Produces monolithic .claude/agents/*.md prompt files.",
+  "author": {
+    "name": "jsnitsel"
+  },
+  "homepage": "https://github.com/jsnitsel/digital-menagerie",
+  "repository": "https://github.com/jsnitsel/digital-menagerie",
+  "license": "MIT",
+  "keywords": ["agents", "personality", "identity", "voice", "interview", "design", "retrofit", "pressure-test"]
+}
