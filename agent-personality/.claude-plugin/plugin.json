@@ -1,6 +1,6 @@
 {
   "name": "agent-personality",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Design personality-driven agents for Claude Code. Creates new agents with personality from the start, or retrofits personality onto existing agents through a structured interview process. Produces monolithic .claude/agents/*.md prompt files.",
   "author": {
     "name": "Jerry Snitselaar"

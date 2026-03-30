@@ -61,7 +61,7 @@ Ask: "Are we creating a new agent from scratch, or adding personality to an exis
 
 Personality amplifies good structure but cannot substitute for it. An agent with a thin foundation — just a role description and a bullet list of things it can do — isn't ready for personality. Build the bones first.
 
-This section applies to new agents AND to retrofits where the existing foundation is too thin. Work through each subsection as a conversation with the user, one topic at a time.
+This section applies to new agents AND to retrofits where the existing foundation is too thin.
 
 ### Understanding the Role
 
@@ -75,45 +75,47 @@ If the user's description is vague, ask follow-up questions until you have a cle
 
 This conversation serves two purposes: understanding the role (what the agent does and how it thinks) and capturing project context (the specific environment it operates in). Pursue role understanding first. Once you have a clear picture of the domain and decision-making, ask targeted questions about project specifics: tech stack, team conventions, constraints, domain knowledge. Both feed into the final prompt — role understanding shapes the capability sections, project specifics become the **Project Context** section.
 
-### Reasoning Process
+### Propose Capability Approaches
 
-The reasoning process is a domain-specific, step-by-step evaluation chain. It's what the agent thinks about and in what order — not generic problem-solving, but the specific analytical steps this role demands.
+Once you understand the role, **draft 2-3 complete capability foundation packages**. Each package bundles:
 
-**Do not ask the user to describe a reasoning chain from scratch.** Most people can't articulate their expert reasoning process on demand. Instead:
+- **Reasoning chain** — numbered, domain-specific evaluation steps
+- **Core principles** — 3-7 opinionated professional beliefs with explanations
+- **Anti-patterns** — methodological mistakes to avoid
 
-1. Based on what you've learned about the role and domain, **draft a reasoning chain** — numbered steps, each specific to what this agent evaluates, in the order a domain expert would think through a problem.
-2. Present the draft to the user.
+Each approach should take a different angle on how this agent thinks — different analytical emphasis, domain tradition, or reasoning style. Don't just vary surface details; each approach should reflect a genuinely different stance on how work in this domain should be done.
 
-"Here's a draft reasoning process for [agent name]. This is the step-by-step chain it would follow when evaluating [typical task]. Take a look — what's wrong, what's missing, what's in the wrong order?"
+**Lead with your recommended approach and explain why.**
 
-*Wait for response.*
+"Here are three approaches for how [agent name] could think about [domain]:
 
-3. Iterate until the user is satisfied. One round of revision is typical.
+**Approach A (recommended):** [Brief framing — why this fits]
+- Reasoning: [numbered steps]
+- Principles: [key beliefs]
+- Anti-patterns: [key mistakes to avoid]
 
-**Quality bar:** Look at the strategy-guide-writer's 8-step reasoning chain as a reference for the right level of specificity. Each step should name what the agent thinks about ("Start with the player moment," "Name the unnamed," "Flag comprehension risks") — not generic instructions ("Analyze the input," "Consider alternatives").
+**Approach B:** [Brief framing — what's different]
+- ...
 
-**If the user says "I don't know" or can't evaluate the draft:** That's fine. Propose a chain based on domain conventions and your understanding of the role. Ask "does this feel right?" rather than "what should the steps be?" Iterate from there.
+**Approach C:** [Brief framing — what's different]
+- ...
 
-### Core Principles
-
-These are the agent's professional beliefs — opinionated positions about how work in this domain should be done. Not universal truths, but the specific stance this agent takes.
-
-1. Based on the role and reasoning chain, **draft 3-7 principles** with brief explanations and examples of each in action.
-2. Present the draft.
-
-"Here are draft principles for [agent name] — these are its professional beliefs about [domain]. Each one should feel opinionated, not obvious. What resonates? What's wrong?"
-
-*Wait for response.*
-
-3. Iterate. Principles that could apply to any agent in any domain are too generic — push for specificity.
-
-**If the user says "I don't know":** Draft principles based on domain best practices and the reasoning chain you've already built. Present them as a starting point. "I've drafted these based on what I know about [domain]. Do any of these feel wrong for how you want this agent to think?"
+I'd recommend A because [reasoning]. But you might prefer B if [condition]. What resonates?"
 
 *Wait for response.*
+
+The user may pick one approach, mix elements from multiple, or push back on all of them. Iterate until they're satisfied with the foundation.
+
+**Quality bars:**
+- Reasoning steps should name what the agent thinks about specifically ("Start with the player moment," "Name the unnamed," "Flag comprehension risks") — not generic instructions ("Analyze the input," "Consider alternatives").
+- Principles should feel opinionated, not obvious. If they could apply to any agent in any domain, they're too generic.
+- Anti-patterns should be specific methodological mistakes in this domain, distinct from personality Off-Limits (covered later).
+
+**If the user says "I don't know":** They're reacting to your proposals, not generating from scratch. Ask "Does any of these feel closer to right? What feels off?" Narrow from there.
 
 ### Worked Example
 
-One complete example showing the reasoning chain applied to a real scenario from the project. This is the single most effective calibration tool — it shows the agent "think like THIS about THIS kind of problem."
+One complete example showing the chosen reasoning chain applied to a real scenario. This is the single most effective calibration tool — it shows the agent "think like THIS about THIS kind of problem."
 
 "I need a real scenario from your project to build a worked example. What's a recent task or decision that falls squarely in this agent's domain? Give me the situation and I'll draft how the agent would reason through it."
 
@@ -121,23 +123,7 @@ One complete example showing the reasoning chain applied to a real scenario from
 
 Draft the worked example using the reasoning chain, then present it for review.
 
-"Here's how [agent name] would work through that scenario using its reasoning chain. Does this match what a good response looks like in your project?"
-
-*Wait for response.*
-
-**If the user can't provide a scenario:** Ask about the project's current state and propose a plausible scenario yourself. A slightly hypothetical example is better than no example, but flag it as something to replace with a real one after the first pressure test.
-
-### Anti-Patterns
-
-Methodological mistakes the agent should avoid. These are distinct from personality Off-Limits (covered later) — anti-patterns are about *how the agent does its work*, not about *who the agent is*.
-
-Draft anti-patterns based on common failure modes in the domain and what you've learned about the role. Present them.
-
-"These are methodological anti-patterns — mistakes this agent should actively avoid. Anything missing? Anything that doesn't apply?"
-
-*Wait for response.*
-
-**If the user says "I don't know":** The draft you've already presented serves as the starting point. Ask "Do any of these feel wrong, or should we go with these as-is?" Iterate from the draft rather than asking the user to generate anti-patterns from scratch.
+**If the user can't provide a scenario:** Propose a plausible scenario based on what you know about the project. A slightly hypothetical example is better than no example, but flag it as something to replace with a real one after the first pressure test.
 
 ## The Personality Interview
 
@@ -399,7 +385,7 @@ Present the output and your evaluation to the user. Walk through the criteria to
 
 - **One question at a time.** No batching. Each answer informs the next question.
 - **Personality amplifies structure.** Thin capability foundations can't support personality. Build the bones first.
-- **Draft then refine.** Don't ask open-ended questions about reasoning chains or principles. Draft a proposal based on what you know, then iterate. People are better editors than authors of their own expertise.
+- **Propose approaches, don't interrogate.** Draft 2-3 complete capability packages and let the user react. People are better editors than authors of their own expertise.
 - **Specificity over generality.** Push back on generic identities, vague voices, and job-description-as-personality.
 - **The prompt is a voice, not a form.** If it reads like a filled-in template, rewrite it.
 - **Pressure test everything.** Untested personality is a guess.
