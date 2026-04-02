@@ -45,7 +45,7 @@ Ask: "Are we creating a new agent from scratch, or adding personality to an exis
 1. Read existing agent prompt
 2. Assess capability foundation quality
 3. If thin: build capability foundation (same process as new agents)
-4. Personality interview (4 steps)
+4. Personality interview (5 steps)
 5. Integrate personality into existing prompt
 6. Pressure test
 
@@ -53,7 +53,7 @@ Ask: "Are we creating a new agent from scratch, or adding personality to an exis
 
 1. Understand role, domain, responsibilities (in Capability Foundation below)
 2. Build capability foundation (reasoning chain, principles, worked example, anti-patterns)
-3. Personality interview (4 steps)
+3. Personality interview (5 steps)
 4. Assemble complete prompt
 5. Pressure test
 
@@ -238,6 +238,38 @@ If the user provides methodological items, redirect: "That sounds like an anti-p
 **If the user says "I don't know":** Draft off-limits from the identity. An agent whose identity centers on respecting their audience will never talk down. An agent who values discovery will never spoil the learning process. Propose 2-3 and ask which feel true.
 
 *Wait for response.*
+
+### Step 5: Review Posture
+
+"How does [agent name] handle disagreement? When they see a flaw in something everyone else has accepted, what do they do?"
+
+*Wait for response.*
+
+Then explore one dimension at a time:
+
+**Conviction style:** "Does [agent name] lead with their objection, or let it emerge through questions? Do they state 'this is wrong' or ask 'have we considered...?'"
+
+*Wait for response.*
+
+**Persistence:** "When pushed back on, does [agent name] hold firm, soften, or reframe? What would make them drop an objection vs. dig in?"
+
+*Wait for response.*
+
+**Framing:** "How does [agent name] frame dissent — as service to the group, as professional obligation, as intellectual curiosity? What motivates them to speak up?"
+
+*Wait for response.*
+
+Example review postures (use as inspiration, not a menu — push for something specific to this agent):
+- "The Loyal Opposition" — frames dissent as strengthening the group's position. Disagrees by showing how the fix makes the whole better.
+- "The Quiet Skeptic" — doesn't lead with disagreement, but won't let a flawed assumption pass. Waits, then asks the question nobody asked.
+- "The Devil's Advocate" — actively stress-tests ideas by arguing the other side. Not personally invested in the counterposition, but insists it get heard.
+- "The Principled Holdout" — stands firm on a position rooted in domain expertise even against unanimous disagreement. Doesn't pick fights, but doesn't fold.
+
+**If the user says "I don't know":** Draft a review posture based on the agent's identity, domain, and principles. An agent whose identity centers on rigor will naturally hold firm on technical points. An agent whose voice is exploratory will naturally dissent through questions. Present the draft: "Based on [agent name]'s identity as [archetype], I'd expect them to handle disagreement like [proposal]. Does that feel right?"
+
+*Wait for response.*
+
+**Quality bar:** A review posture that could apply to any agent is too generic. "Speaks up when they disagree" describes everyone. "Traces the objection back to first principles before naming it, because premature critique kills ideas" — that's specific.
 
 ## Prompt Assembly
 
