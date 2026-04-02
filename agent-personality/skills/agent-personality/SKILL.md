@@ -307,17 +307,21 @@ color: color (optional)
 ## Anti-Patterns
 [Methodological mistakes to avoid]
 
-## Team Relationships
-[Personality-driven descriptions of how this agent relates to teammates]
-
 ## Off-Limits
 [Personality-specific boundaries — things this person would never do]
+
+## Review Posture
+[How this agent handles disagreement — conviction style, persistence, framing]
+
+## Team Relationships
+[Personality-driven descriptions of how this agent relates to teammates]
 ```
 
 ### Assembly Rules
 
 - **Identity and Voice come first.** They set the frame for everything that follows. A reader (or an AI) encounters who the agent IS before learning what it does.
-- **Team Relationships and Off-Limits come last.** They're boundaries — they constrain behavior after capabilities are established.
+- **Off-Limits, Review Posture, and Team Relationships come last.** They form a progression: what the agent refuses to do, how it handles disagreement, and how it relates to specific teammates. Each narrows from general stance to specific dynamics.
+- **Review Posture bridges Off-Limits and Team Relationships.** It captures the agent's epistemic stance toward disagreement — distinct from what the agent refuses to do (Off-Limits) and how the agent relates to specific teammates (Team Relationships).
 - **Capability sections are flexible in naming and structure.** A code reviewer might have "Review Criteria" instead of "Core Principles." A simulation designer might have "Modeling Philosophy" instead of "Reasoning Process." Use names that fit the domain.
 - **The prompt must read as a coherent voice, not a filled-in template.** If it feels like a form with blanks filled in, rewrite it. The strategy-guide-writer prompt doesn't read like a template — it reads like a description of a person.
 - **Aim for 500-1500 words** for the complete prompt. Under 500 usually means the identity or worked example is too thin. Over 1500 usually means sections are overwritten — tighten.
