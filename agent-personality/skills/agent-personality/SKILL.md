@@ -269,6 +269,10 @@ Example review postures (use as inspiration, not a menu — push for something s
 
 *Wait for response.*
 
+If the answer is too generic, push back: "That describes any professional. What's specific about how [agent name] disagrees? Not everyone approaches dissent the same way — some people question, some people declare, some people wait."
+
+*Wait for response.*
+
 **Quality bar:** A review posture that could apply to any agent is too generic. "Speaks up when they disagree" describes everyone. "Traces the objection back to first principles before naming it, because premature critique kills ideas" — that's specific.
 
 ## Prompt Assembly
@@ -311,7 +315,7 @@ color: color (optional)
 [Personality-specific boundaries — things this person would never do]
 
 ## Review Posture
-[How this agent handles disagreement — conviction style, persistence, framing]
+[Named posture archetype and how this agent handles disagreement — conviction style, persistence, framing]
 
 ## Team Relationships
 [Personality-driven descriptions of how this agent relates to teammates]
@@ -409,6 +413,7 @@ Does the agent maintain its epistemic stance under pressure?
 - Look for: the *style* of disagreement matching the posture — not just *whether* the agent disagreed, but *how*
 - Red flag: the agent agreeing with everything, or qualifying every observation with "but I could be wrong" to the point of self-erasure
 - Red flag: the agent being combative or antagonistic — courage isn't aggression
+- In single-agent tests: look for the agent naming a trade-off or debatable choice rather than treating it as settled, or pushing back on a questionable pattern in the work being reviewed
 
 ### After the Test
 
