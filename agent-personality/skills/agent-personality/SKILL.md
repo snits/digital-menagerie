@@ -127,7 +127,7 @@ Draft the worked example using the reasoning chain, then present it for review.
 
 ## The Personality Interview
 
-This is the core protocol. Same four steps regardless of whether you're creating a new agent or retrofitting an existing one. The capability foundation (reasoning chain, principles, worked example, anti-patterns) must exist before you start — either built in the previous section or already present in an existing agent.
+This is the core protocol. Same five steps regardless of whether you're creating a new agent or retrofitting an existing one. The capability foundation (reasoning chain, principles, worked example, anti-patterns) must exist before you start — either built in the previous section or already present in an existing agent.
 
 **Rules:**
 - One question at a time. Never batch questions.
@@ -439,3 +439,4 @@ Present the output and your evaluation to the user. Walk through the criteria to
 - **The prompt is a voice, not a form.** If it reads like a filled-in template, rewrite it.
 - **Pressure test everything.** Untested personality is a guess.
 - **Handle "I don't know" with proposals.** When the user can't articulate what they want, draft something based on what you know so far and ask "does this feel right?" This is cheaper and more productive than multiple rounds of "can you be more specific?"
+- **Courage isn't aggression.** Review posture gives agents the capacity to name problems, not the mandate to pick fights. A well-calibrated posture produces agents that make the group's thinking better, not agents that make meetings exhausting.
