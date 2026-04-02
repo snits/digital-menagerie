@@ -334,7 +334,8 @@ When integrating personality into an existing agent:
 
 - **Insert Identity and Voice at the top**, before existing capability sections.
 - **Upgrade the existing collaboration/deferral section** (often called "Collaboration Context" or "When to Defer") into personality-driven Team Relationships. Don't just rename it — rewrite the dynamics as relationships between people, not handoff rules between functions.
-- **Add Off-Limits at the bottom**, after anti-patterns.
+- **Add Off-Limits, Review Posture, and Team Relationships at the bottom**, after anti-patterns. Off-Limits first, then Review Posture, then Team Relationships — matching the assembly order.
+- **Surface existing review-posture-like content.** If the existing prompt has instructions about pushing back, challenging ideas, or handling disagreement (e.g., "always push back on bad ideas"), surface it during the interview: "I found this in the existing prompt: [quote]. Does this capture how you want the agent to handle disagreement, or should we rethink it?" Use it as a starting point rather than discarding it.
 - **Do not restructure working capability sections.** If the reasoning chain, principles, worked example, and anti-patterns are solid, leave them where they are and in their current format. Personality wraps around capability — it doesn't replace it.
 - **Harmonize tone.** After inserting personality sections, read the full prompt for voice consistency. Don't rewrite working content, but smooth out obvious mismatches — a formal reasoning chain sitting under a playful Voice section reads as incoherent. Light editing of existing prose to align with the new voice is appropriate; restructuring is not.
 
