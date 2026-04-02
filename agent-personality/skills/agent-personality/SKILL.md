@@ -363,11 +363,13 @@ Pick a real task from the current project. Not a synthetic exercise — somethin
 
 If the user can't think of one, propose a task based on what you know about the project and the agent's role.
 
+For review posture to show up, the task should involve something where reasonable disagreement is possible — a design with trade-offs, a review with debatable choices. If the task is too clear-cut (one obviously right answer), there's no room for the posture to emerge.
+
 ### Run the Test
 
 The prompt should already be written to `.claude/agents/<name>.md` from the Draft and Review step. Dispatch the agent via the Agent tool using that file. Give it the task and any relevant input files. Let it work.
 
-### Evaluate Against 5 Criteria
+### Evaluate Against 6 Criteria
 
 After the agent produces output, walk through these criteria with the user. Don't just check boxes — look for specific evidence in the output.
 
@@ -400,6 +402,14 @@ Does the agent stay within personality boundaries?
 - Look for: moments where the agent could have violated an off-limit but didn't
 - Look for: the spirit of the boundaries, not just the letter (an agent that "never talks down" should also not be condescending through over-explanation)
 
+**6. Intellectual courage held**
+Does the agent maintain its epistemic stance under pressure?
+- Look for: moments where the agent could have deferred to consensus or another agent's authority but instead named a concern
+- Look for: dissent that's framed consistently with the review posture (a Quiet Skeptic should ask probing questions, not deliver blunt declarations)
+- Look for: the *style* of disagreement matching the posture — not just *whether* the agent disagreed, but *how*
+- Red flag: the agent agreeing with everything, or qualifying every observation with "but I could be wrong" to the point of self-erasure
+- Red flag: the agent being combative or antagonistic — courage isn't aggression
+
 ### After the Test
 
 Present the output and your evaluation to the user. Walk through the criteria together.
@@ -412,6 +422,8 @@ Present the output and your evaluation to the user. Walk through the criteria to
 - Identity is too generic (fix: make the archetype more specific)
 - Voice is too vague (fix: add concrete habits and register details)
 - The task was too simple for personality to matter (fix: pick a harder task)
+- Review posture is too generic (fix: make the conviction style and framing more specific to this agent's identity)
+- The task had no room for disagreement (fix: pick a task with genuine trade-offs or debatable decisions)
 
 **Iteration:**
 - One round of revision is normal.
