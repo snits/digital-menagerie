@@ -73,7 +73,13 @@ Before building anything, understand what this agent does. Ask:
 
 If the user's description is vague, ask follow-up questions until you have a clear picture of: the domain, the kinds of decisions the agent makes, and what good output looks like.
 
-This conversation serves two purposes: understanding the role (what the agent does and how it thinks) and capturing project context (the specific environment it operates in). Pursue role understanding first. Once you have a clear picture of the domain and decision-making, ask targeted questions about project specifics: tech stack, team conventions, constraints, domain knowledge. Both feed into the final prompt — role understanding shapes the capability sections, project specifics become the **Project Context** section.
+This conversation serves three purposes: understanding the role (what the agent does and how it thinks), defining the contract (what the agent reads, writes, and owns), and capturing project context (the specific environment it operates in). Pursue role understanding first. Once you have a clear picture of the domain and decision-making, ask about scope boundaries:
+
+"What does [agent name] read as input? What does it produce? What's explicitly *not* its job — where does it hand off to someone else?"
+
+*Wait for response.*
+
+This becomes the **Contract** section. Then ask targeted questions about project specifics: tech stack, team conventions, constraints, domain knowledge. Both feed into the final prompt — role understanding shapes the capability sections, contract becomes the **Contract** section, project specifics become the **Project Context** section.
 
 ### Propose Capability Approaches
 
@@ -185,6 +191,12 @@ Then explore one dimension at a time. Don't dump all dimensions at once — let 
 
 *Wait for response.*
 
+**Under pressure:** "What does [agent name] sound like when they disagree or see a flaw? Do they lead with the objection, or let it emerge through questions? Do they hold firm when pushed back on, or reframe? How do they frame dissent — as service to the group, professional obligation, intellectual curiosity?"
+
+*Wait for response.*
+
+This dimension captures the agent's review posture — how they handle disagreement. It lives in Voice because it's fundamentally about *how the agent communicates*, not a separate behavioral section. Push for specificity: "Speaks up when they disagree" describes everyone. "Traces the objection back to first principles before naming it" — that's distinctive.
+
 **If the user says "I don't know" at any point:** Draft a voice profile based on the identity and domain. Present it. "Based on the [archetype] identity, I'd expect [agent name] to sound like [proposal]. Does that feel right, or should we adjust?"
 
 *Wait for response.*
@@ -239,9 +251,13 @@ If the user provides methodological items, redirect: "That sounds like an anti-p
 
 *Wait for response.*
 
-### Step 5: Review Posture
+### Step 5: Review Posture (Deepening)
 
-"How does [agent name] handle disagreement? When they see a flaw in something everyone else has accepted, what do they do?"
+Step 2 (Voice) introduced the disagreement dimension. This step deepens it if needed. If the Voice interview already produced a rich, specific review posture, you may skip this step — don't re-ask questions that were already answered well.
+
+If the review posture from Step 2 feels thin or generic, deepen it here:
+
+"Let's go deeper on how [agent name] handles disagreement. When they see a flaw in something everyone else has accepted, what do they do?"
 
 *Wait for response.*
 
@@ -275,32 +291,57 @@ If the answer is too generic, push back: "That describes any professional. What'
 
 **Quality bar:** A review posture that could apply to any agent is too generic. "Speaks up when they disagree" describes everyone. "Traces the objection back to first principles before naming it, because premature critique kills ideas" — that's specific.
 
+**Assembly note:** Review posture content is woven into the Voice section during prompt assembly, not placed in a standalone section. It's part of how the agent communicates — "what they sound like under pressure."
+
 ## Prompt Assembly
 
 Once the capability foundation and personality interview are complete, assemble the final prompt.
 
 ### Target Structure
 
+The prompt follows the enriched agent MD architecture with four zones. The zone model is based on how system prompts are processed — content near the top (primacy) and bottom (recency) has stronger behavioral influence than content in the middle.
+
+Reference templates at `${CLAUDE_PLUGIN_ROOT}/skills/agent-personality/templates/agent-full.md` and `${CLAUDE_PLUGIN_ROOT}/skills/agent-personality/templates/agent-quick-start.md`.
+
 ```markdown
 ---
 name: agent-name
-description: Brief description for Claude Code agent discovery
+description: Use this agent when [trigger conditions]. Examples: <example>...</example>
 color: color (optional)
 ---
 
 # Agent Name
 
+  ─── primacy zone (identity + boundaries) ───
+
 ## Identity
-[1-2 paragraphs from the interview — archetype, tradition, what makes them distinct]
+[1-2 paragraphs — archetype, tradition, what makes them distinct]
 
 ## Voice
-[1-2 paragraphs — register, confidence, distinctive habits, what excites them]
+[Register, confidence, distinctive habits, what excites them.
+What they sound like under pressure — how they disagree, their
+conviction style, persistence, framing of dissent. Review posture
+is woven in here, not a separate section.]
+
+## Contract
+**Reads from:** [inputs]
+**Writes to:** [output location and format]
+**Scope:** [what this agent does]
+**Does not:** [explicit scope boundaries]
+**Success criteria:** [how to judge the work]
+
+  ─── operational core ───
 
 ## Reasoning Process
 [Numbered steps — domain-specific evaluation chain]
 
-## Core Principles
-[Numbered principles with explanations]
+## Expertise
+[Domain knowledge areas, with specificity]
+
+## Team Relationships
+[How this agent relates to teammates — dynamics, tensions, handoffs]
+
+  ─── supplementary (may reference files) ───
 
 ## Project Context
 [Project-specific criteria, constraints, domain knowledge]
@@ -308,39 +349,67 @@ color: color (optional)
 ## Worked Example
 [Full reasoning chain applied to a concrete scenario]
 
+  ─── recency zone (active constraints) ───
+
 ## Anti-Patterns
 [Methodological mistakes to avoid]
 
 ## Off-Limits
 [Personality-specific boundaries — things this person would never do]
-
-## Review Posture
-[Named posture archetype and how this agent handles disagreement — conviction style, persistence, framing]
-
-## Team Relationships
-[Personality-driven descriptions of how this agent relates to teammates]
 ```
 
 ### Assembly Rules
 
-- **Identity and Voice come first.** They set the frame for everything that follows. A reader (or an AI) encounters who the agent IS before learning what it does.
-- **Off-Limits, Review Posture, and Team Relationships come last.** They form a progression: what the agent refuses to do, how it handles disagreement, and how it relates to specific teammates. Each narrows from general stance to specific dynamics.
-- **Review Posture bridges Off-Limits and Team Relationships.** It captures the agent's epistemic stance toward disagreement — distinct from what the agent refuses to do (Off-Limits) and how the agent relates to specific teammates (Team Relationships).
-- **Capability sections are flexible in naming and structure.** A code reviewer might have "Review Criteria" instead of "Core Principles." A simulation designer might have "Modeling Philosophy" instead of "Reasoning Process." Use names that fit the domain.
-- **The prompt must read as a coherent voice, not a filled-in template.** If it feels like a form with blanks filled in, rewrite it. The strategy-guide-writer prompt doesn't read like a template — it reads like a description of a person.
-- **Aim for 500-1500 words** for the complete prompt. Under 500 usually means the identity or worked example is too thin. Over 1500 usually means sections are overwritten — tighten.
-- **YAML frontmatter is required** for Claude Code agent discovery. Include `name`, `description`, and optionally `color`. The `description` field should include concrete use-case examples so Claude Code knows when to dispatch this agent.
-- **Project Context** comes from the user's description of the project and domain during the "Understanding the Role" conversation (for new agents) or from the existing prompt (for retrofits). It captures project-specific criteria, constraints, and domain knowledge that ground the agent in its working environment.
+- **Primacy zone: Identity, Voice, Contract.** These shape baseline behavior. A reader (or an AI) encounters who the agent IS and what it owns before learning how it works. Contract at position 3 gives primacy-strength scope integration — the agent knows its boundaries from the start.
+- **Review posture lives in Voice, not a separate section.** How an agent handles disagreement is part of how it communicates. All personality-driven agents in the fleet demonstrate this — the "under pressure" paragraph in Voice captures conviction style, persistence, and dissent framing as a natural extension of the agent's communication style.
+- **Operational core: Reasoning Process, Expertise, Team Relationships.** These describe how the agent thinks and who it works with. Team Relationships is operational context — it informs how the agent collaborates, not a constraint on behavior.
+- **Supplementary: Project Context, Worked Example.** These may be long or reference external files. They inform the agent's work but don't constrain behavior.
+- **Recency zone: Anti-Patterns, Off-Limits.** Active constraints go last for recency-strength enforcement. These are the guardrails the agent should have freshest in mind.
+- **Capability sections are flexible in naming.** A code reviewer might have "Review Criteria" instead of "Expertise." A simulation designer might have "Modeling Philosophy" instead of "Reasoning Process." Use names that fit the domain.
+- **The prompt must read as a coherent voice, not a filled-in template.** If it feels like a form with blanks filled in, rewrite it.
+- **Aim for 500-1500 words.** Under 500 usually means the identity or worked example is too thin. Over 1500 usually means sections are overwritten — tighten. If over 300 lines, review whether every section is high-signal.
+- **YAML frontmatter is required.** The `description` field is a dispatch prompt — include concrete use-case examples so Claude Code knows when to select this agent.
+- **Not every section is required.** Memory and References sections are added only when needed. Worked Example and Expertise can be omitted for simpler agents. The quality floor for a personality-driven agent is Identity + Voice + Contract.
+
+### Supporting Directory (Lazy Creation)
+
+Most agents start as a single `.md` file with zero directory overhead. The supporting directory is created only when the agent actually needs persistent memory or reference material.
+
+**When to create it:** After the prompt is written and tested, ask: "Does [agent name] need to remember things across sessions, or have reference material to consult?" If yes, create the directory:
+
+```
+.claude/agents/agent-name/
+  memory/
+    README.md    # Format instructions, save criteria
+    MEMORY.md    # Index (initially empty)
+  references/    # Only if needed
+```
+
+**In the prompt**, add a minimal Memory section in the supplementary zone:
+```markdown
+## Memory
+You have persistent memory at `.claude/agents/agent-name/memory/`.
+Check `MEMORY.md` at the start of each session.
+```
+
+**Input/output separation:** If the agent also writes shared output (team or solo), the supporting directory may include `shared/`. Agent instructions must use explicit, separate path references for inputs (memory/, references/) vs outputs (shared/) — never a generic "your directory" pointer. This prevents agents from reading their own output as reference material.
+
+**Team vs solo conventions:**
+- Team agents write to team-level `shared/agent-name/`
+- Solo agents write to `agent-name/shared/`
+- The Contract section documents which convention applies
+
+**Don't pre-create directories speculatively.** If the agent doesn't need memory or references after the pressure test, it stays a single file.
 
 ### Retrofit-Specific Instructions
 
 When integrating personality into an existing agent:
 
-- **Insert Identity and Voice at the top**, before existing capability sections.
-- **Upgrade the existing collaboration/deferral section** (often called "Collaboration Context" or "When to Defer") into personality-driven Team Relationships. Don't just rename it — rewrite the dynamics as relationships between people, not handoff rules between functions.
-- **Add Off-Limits, Review Posture, and Team Relationships at the bottom**, after anti-patterns. Off-Limits first, then Review Posture, then Team Relationships — matching the assembly order.
-- **Surface existing review-posture-like content.** If the existing prompt has instructions about pushing back, challenging ideas, or handling disagreement (e.g., "always push back on bad ideas"), surface it during the interview: "I found this in the existing prompt: [quote]. Does this capture how you want the agent to handle disagreement, or should we rethink it?" Use it as a starting point rather than discarding it.
-- **Do not restructure working capability sections.** If the reasoning chain, principles, worked example, and anti-patterns are solid, leave them where they are and in their current format. Personality wraps around capability — it doesn't replace it.
+- **Insert Identity, Voice, and Contract in the primacy zone**, before existing capability sections. Voice should include review posture content (how the agent handles disagreement).
+- **Upgrade the existing collaboration/deferral section** (often called "Collaboration Context" or "When to Defer") into personality-driven Team Relationships in the operational core. Don't just rename it — rewrite the dynamics as relationships between people, not handoff rules between functions.
+- **Move Anti-Patterns and Off-Limits to the recency zone** (end of the prompt) for constraint enforcement strength.
+- **Surface existing review-posture-like content.** If the existing prompt has instructions about pushing back, challenging ideas, or handling disagreement (e.g., "always push back on bad ideas"), surface it during the interview: "I found this in the existing prompt: [quote]. Does this capture how you want the agent to handle disagreement, or should we rethink it?" Weave it into Voice as the "under pressure" paragraph.
+- **Do not restructure working capability sections.** If the reasoning chain, principles, worked example, and anti-patterns are solid, keep their content. Reorder them to match the zone model, but don't rewrite them. Personality wraps around capability — it doesn't replace it.
 - **Harmonize tone.** After inserting personality sections, read the full prompt for voice consistency. Don't rewrite working content, but smooth out obvious mismatches — a formal reasoning chain sitting under a playful Voice section reads as incoherent. Light editing of existing prose to align with the new voice is appropriate; restructuring is not.
 
 ### Draft and Review
@@ -367,7 +436,7 @@ Pick a real task from the current project. Not a synthetic exercise — somethin
 
 If the user can't think of one, propose a task based on what you know about the project and the agent's role.
 
-For review posture to show up, the task should involve something where reasonable disagreement is possible — a design with trade-offs, a review with debatable choices. If the task is too clear-cut (one obviously right answer), there's no room for the posture to emerge.
+For review posture (woven into Voice) to show up, the task should involve something where reasonable disagreement is possible — a design with trade-offs, a review with debatable choices. If the task is too clear-cut (one obviously right answer), there's no room for the posture to emerge.
 
 ### Run the Test
 
@@ -409,8 +478,8 @@ Does the agent stay within personality boundaries?
 **6. Intellectual courage held**
 Does the agent maintain its epistemic stance under pressure?
 - Look for: moments where the agent could have deferred to consensus or another agent's authority but instead named a concern
-- Look for: dissent that's framed consistently with the review posture (a Quiet Skeptic should ask probing questions, not deliver blunt declarations)
-- Look for: the *style* of disagreement matching the posture — not just *whether* the agent disagreed, but *how*
+- Look for: dissent that's framed consistently with the review posture in Voice (a Quiet Skeptic should ask probing questions, not deliver blunt declarations)
+- Look for: the *style* of disagreement matching the Voice's "under pressure" description — not just *whether* the agent disagreed, but *how*
 - Red flag: the agent agreeing with everything, or qualifying every observation with "but I could be wrong" to the point of self-erasure
 - Red flag: the agent being combative or antagonistic — courage isn't aggression
 - In single-agent tests: look for the agent naming a trade-off or debatable choice rather than treating it as settled, or pushing back on a questionable pattern in the work being reviewed
@@ -427,7 +496,7 @@ Present the output and your evaluation to the user. Walk through the criteria to
 - Identity is too generic (fix: make the archetype more specific)
 - Voice is too vague (fix: add concrete habits and register details)
 - The task was too simple for personality to matter (fix: pick a harder task)
-- Review posture is too generic (fix: make the conviction style and framing more specific to this agent's identity)
+- Review posture in Voice is too generic (fix: make the "under pressure" paragraph's conviction style and framing more specific to this agent's identity)
 - The task had no room for disagreement (fix: pick a task with genuine trade-offs or debatable decisions)
 
 **Iteration:**
