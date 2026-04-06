@@ -38,7 +38,7 @@ Read each agent file and classify it along two axes.
 Classify based on the agent's actual behavior, not its name:
 
 - **Constructive** — primary function is to improve, refine, extend, or build. The agent makes things better. It proposes solutions, suggests improvements, explores possibilities.
-- **Destructive** — primary function is to reject, invalidate, prune, or stress-test. The agent finds reasons something should not proceed as-is. It challenges premises, forces tradeoffs, produces failure scenarios.
+- **Destructive** — primary function is to reject, invalidate, prune, or stress-test. The agent finds reasons something should not proceed as-is. It challenges premises, forces tradeoffs, produces failure scenarios. **Litmus test:** does the agent have an explicit mandate to *block, reject, or kill* proposals? Finding problems is not destructive — finding problems and recommending fixes is constructive/hybrid. Finding problems and recommending *rejection* is destructive.
 - **Hybrid** — applies both constructive and destructive pressure depending on context. Reviews, validates, and may either approve or reject.
 
 Classification signals vary by agent file format:
@@ -56,7 +56,13 @@ Classification signals vary by agent file format:
 **Minimal agents** (single prompt file):
 - Read the full prompt. Look for the same signals: does it build up or tear down?
 
-When uncertain, classify as constructive. The skill's purpose is to find missing destructive pressure — false negatives (missing a constructive agent) are less harmful than false positives (miscategorizing a constructive agent as destructive).
+**Classification anchors:**
+
+- **Classify the personality, not the domain.** Orientation is determined by the agent's behavioral mandate (Identity, Contract, Reasoning Process), not by its domain application (Project Context, Worked Examples). An agent that "identifies balance breakpoints and recommends minimum effective changes" is hybrid regardless of whether those breakpoints are about VM dispatch or signal calibration. Project Context sections describe *what domain* the agent works in, not *how it behaves*.
+- **Stability test.** Before finalizing a classification, ask: "Would this agent be classified the same way if the Project Context section described a different project?" If the answer is no, you have classified the domain, not the agent. Reclassify using only the behavioral sections.
+- **"Finds problems" is not destructive.** Many constructive and hybrid agents find problems — that is analysis, not destruction. The destructive threshold is whether the agent's reasoning process includes *rejection criteria* — explicit conditions under which the agent recommends blocking, cutting, or killing a proposal rather than improving it. If the reasoning process always terminates in "recommend the minimum effective change" or "suggest improvements," the agent is constructive or hybrid even if its analysis is critical.
+
+When uncertain, classify as constructive. The skill's purpose is to find missing destructive pressure — false negatives (missing a constructive agent) are less harmful than false positives (miscategorizing a constructive agent as destructive). Promoting an agent to destructive because it "sounds critical" inflates the balance count and hides the very gap this skill exists to catch.
 
 **Axis 2: Failure Mode Coverage**
 
