@@ -1,6 +1,6 @@
 {
   "name": "agent-personality",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Design personality-driven agents and analyze team composition for Claude Code. Includes agent-personality (builds capability foundations, conducts personality interviews, assembles prompts with four-zone architecture) and team-composition (analyzes teams for orientation balance, coverage gaps, overlaps, and attrition patterns).",
   "author": {
     "name": "Jerry Snitselaar"
