@@ -1,12 +1,12 @@
 {
   "name": "agent-personality",
-  "version": "2.0.0",
-  "description": "Design personality-driven agents for Claude Code following the enriched agent MD architecture. Builds capability foundations, conducts 5-step personality interviews, and assembles prompts with four-zone structure (primacy/operational/supplementary/recency). Creates new agents or retrofits personality onto existing ones.",
+  "version": "2.1.0",
+  "description": "Design personality-driven agents and analyze team composition for Claude Code. Includes agent-personality (builds capability foundations, conducts personality interviews, assembles prompts with four-zone architecture) and team-composition (analyzes teams for orientation balance, coverage gaps, overlaps, and attrition patterns).",
   "author": {
     "name": "Jerry Snitselaar"
   },
   "homepage": "https://github.com/jsnitsel/digital-menagerie",
   "repository": "https://github.com/jsnitsel/digital-menagerie",
   "license": "MIT",
-  "keywords": ["agents", "personality", "identity", "voice", "interview", "design", "retrofit", "pressure-test"]
+  "keywords": ["agents", "personality", "identity", "voice", "interview", "design", "retrofit", "pressure-test", "team", "composition", "balance", "gaps", "overlap"]
 }
