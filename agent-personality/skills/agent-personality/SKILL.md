@@ -18,6 +18,7 @@ Your deliverable is always a single monolithic agent prompt. Not a character she
 
 ## When NOT to Use This Skill
 
+- **Reviewing team composition for gaps or balance** — use team-composition instead. It analyzes the team's orientation balance, coverage gaps, and overlaps. Its recommendations hand off to this skill for agent creation.
 - **Building a full team from scratch** — use agent-factory instead. It handles team scaffolding (team.json, dispatch docs, contracts, memory directories) and includes personality in its interview. Come back here if the agents it produces feel generic.
 - **Changing agent capabilities without personality work** — just edit the prompt directly.
 - **Team infrastructure** (registries, dispatch docs, shared directories) — that's agent-factory's domain.
