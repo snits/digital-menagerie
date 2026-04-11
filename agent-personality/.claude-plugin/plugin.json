@@ -5,8 +5,8 @@
   "author": {
     "name": "Jerry Snitselaar"
   },
-  "homepage": "https://github.com/jsnitsel/digital-menagerie",
-  "repository": "https://github.com/jsnitsel/digital-menagerie",
+  "homepage": "https://github.com/snits/digital-menagerie",
+  "repository": "https://github.com/snits/digital-menagerie",
   "license": "MIT",
   "keywords": ["agents", "personality", "identity", "voice", "interview", "design", "retrofit", "pressure-test", "team", "composition", "balance", "gaps", "overlap"]
 }

@@ -25,7 +25,7 @@ Add to your Claude Code settings (`~/.claude/settings.json`):
     "digital-menagerie": {
       "source": {
         "source": "github",
-        "repo": "jsnitsel/digital-menagerie"
+        "repo": "snits/digital-menagerie"
       }
     }
   },

@@ -3,7 +3,7 @@
   "description": "Claude Code plugins for agent design, workflow, and tooling",
   "owner": {
     "name": "Jerry Snitselaar",
-    "url": "https://github.com/jsnitsel"
+    "url": "https://github.com/snits"
   },
   "plugins": [
     {
