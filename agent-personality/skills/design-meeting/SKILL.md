@@ -15,7 +15,7 @@ Spin up a team of domain-focused agents to review an artifact from multiple angl
 - A complex bug needs multiple domain angles (root cause, blast radius, related patterns)
 - An architecture decision needs perspectives on trade-offs
 - Any artifact where a single reviewer would miss things
-- The user asks for "design review," "design meeting," "get fresh eyes on this," or "war room"
+- User asks for "design review," "design meeting," "get fresh eyes on this," or "war room"
 
 ## Process Flow
 
@@ -30,6 +30,8 @@ digraph design_meeting {
     "All cross-reviews done?" [shape=diamond];
     "Phase 3: Meeting (DM discussion)" [shape=box];
     "Positions converged?" [shape=diamond];
+    "Sign-off handshake (each agent confirms)" [shape=box, style=bold];
+    "All three signed off?" [shape=diamond];
     "Phase 4: Lead writes report" [shape=box];
     "TeamDelete + present to user" [shape=doublecircle];
 
@@ -44,7 +46,10 @@ digraph design_meeting {
     "All cross-reviews done?" -> "Phase 3: Meeting (DM discussion)" [label="yes"];
     "Phase 3: Meeting (DM discussion)" -> "Positions converged?";
     "Positions converged?" -> "Phase 3: Meeting (DM discussion)" [label="no, continue"];
-    "Positions converged?" -> "Phase 4: Lead writes report" [label="yes"];
+    "Positions converged?" -> "Sign-off handshake (each agent confirms)" [label="looks like yes"];
+    "Sign-off handshake (each agent confirms)" -> "All three signed off?";
+    "All three signed off?" -> "Phase 3: Meeting (DM discussion)" [label="any agent flags open issue"];
+    "All three signed off?" -> "Phase 4: Lead writes report" [label="all yes"];
     "Phase 4: Lead writes report" -> "TeamDelete + present to user";
 }
 ```
@@ -143,6 +148,57 @@ Wait for all agents before proceeding.
 
 If agents are only reporting to the lead and not engaging each other, explicitly prompt: "Have you discussed this directly with {agent-name}? Send them a message."
 
+### Reading idle signals correctly
+
+Idle notifications come in two flavors. Read them carefully — they are NOT all "I'm done."
+
+| Idle notification looks like | What it actually means |
+|---|---|
+| Bare idle, no `summary` | Truly waiting. No DM in flight. Could be done. |
+| Idle with `summary: "[to X] ..."` | **Just sent a DM, ball in X's court.** Conversation is alive. NOT done. |
+| Idle with summary like "convergence reached" + caveat ("two pushbacks", "one residual note") | Sent a message claiming convergence, but the caveat means an open thread exists. NOT done. |
+| Direct message saying "Phase 3 complete, ready for Phase 4" | Done — but only this one agent. Need same from all. |
+
+The dangerous case is the second row. An idle summary like "[to nomenclature] Strong agreement on both" looks like a positive close-out signal, but it actually means the agent shipped a message and is waiting for the recipient to read it and respond. Acting on this as a "done" signal collapses Phase 3 prematurely.
+
+### Sign-off handshake (REQUIRED before Phase 4)
+
+When discussion appears to have converged, **do not jump to Phase 4 or send shutdown_request based on inference.** The agents may still be mid-DM on a question you can't see. One agent claiming "three-way convergence" does not bind the other two — they may have late objections that haven't surfaced yet.
+
+**Required handshake protocol:**
+
+Send each agent an individual DM:
+
+```
+Phase 3 close-out check. Before I write the report:
+
+1. Are you fully signed off on the converged positions, or do you have a
+   live disagreement / pending message you're waiting on a response for?
+2. Is there anything you flagged in cross-review or DMs that the synthesis
+   would lose if I write Phase 4 now?
+
+Reply with either "signed off, ready for Phase 4" OR a list of open
+threads / dissents I should know about. Do NOT just go idle — explicit
+yes/no required.
+```
+
+**Wait for explicit text replies from all agents.** Idle notifications are not replies. Bare "going idle" messages without an explicit sign-off do not count.
+
+If any agent flags an open thread or dissent: return to Phase 3 discussion. Surface the issue, let agents debate it, then re-do the handshake. Repeat until all agents explicitly sign off.
+
+If an agent's reply is ambiguous ("mostly aligned, but..."), treat it as NOT signed off and dig in.
+
+**Only after three explicit sign-offs:** proceed to Phase 4 and send shutdown_requests.
+
+### Premature shutdown is unrecoverable
+
+Once you send `shutdown_request` and an agent terminates, you cannot put the question back to them. Any open thread becomes the lead's problem to either:
+- adjudicate alone (risky if it's a 2v1 split with substance on both sides — the lead is not always the right adjudicator)
+- surface to the user as an open question (honest but signals the meeting didn't fully complete)
+- attempt to reconstruct the agent's position from message history (lossy)
+
+The handshake exists specifically to prevent this. **No shortcuts.**
+
 ## Phase 4: Report
 
 Lead writes the final report to:
@@ -229,6 +285,8 @@ Notify the lead when done.
 
 **Let agents drive the meeting.** After framing, resist steering. The value is in agents challenging each other. Intervene only when stuck or off-topic.
 
+**Verify convergence with explicit handshake, not by inference.** "Looks converged" is the trap. Idle summaries like "[to X] Strong agreement" mean a DM is in flight, not that the conversation is done. Send each agent an explicit Phase 3 close-out question and wait for explicit text replies before shutting anyone down. Premature shutdown is unrecoverable — once an agent terminates, you cannot put the question back to them.
+
 ## Failure Modes
 
 | Symptom | Cause | Fix |
@@ -241,3 +299,6 @@ Notify the lead when done.
 | Agents anchor on wrong reference | Missing product context in prompt | Product context MUST be in Phase 0 agent prompts, not discovered mid-meeting |
 | Design assumptions don't match code | Agents only reviewed the spec, not integration points | Include integration points in Phase 0; agents must read actual code at modification sites |
 | Agents go idle without responding | Timing/message processing | Nudge individually with specific question — individual messages get better engagement than broadcasts |
+| Phase 3 declared converged but agent surfaces dissent post-shutdown | Lead inferred convergence from idle summaries / single agent's "three-way convergence" claim instead of running explicit handshake | Always run the Phase 3 sign-off handshake — explicit text replies from all agents required before any shutdown_request. Idle ≠ signed off. |
+| Lead ends up adjudicating a 2v1 split alone after agents terminated | Same as above — premature shutdown closed the team floor before disagreement resolved | Handshake catches this. If it slips through anyway: surface the split honestly to the user as an Open Question with both positions, do NOT silently adjudicate. The user is the right tiebreaker for substantive disagreements the team didn't resolve. |
+| One agent's "we're converged" message is treated as the whole team's position | Lead assumed spokesperson role exists; it does not | Convergence claims from any single agent are at most that agent's view of where things stand. The handshake binds each agent individually. |
